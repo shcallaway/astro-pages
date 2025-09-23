@@ -24,7 +24,7 @@ const posts = (await getCollection('posts'))
             <li class="tag">{tag}</li>
           ))}
         </ul>
-        <a class="button secondary" href={`/blog/${post.slug}`}>Read post</a>
+        <a class="button secondary" href={import.meta.env.BASE_URL + `blog/${post.slug}`}>Read post</a>
       </article>
     ))}
     {posts.length === 0 && (
