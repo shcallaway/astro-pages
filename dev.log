@@ -1,0 +1,15 @@
+
+> astro-pages@0.0.1 dev
+> astro dev
+
+23:06:03 [types] Generated 1ms
+23:06:03 [vite] Port 4321 is in use, trying another one...
+23:06:03 [vite] Port 4322 is in use, trying another one...
+23:06:03 [vite] Port 4323 is in use, trying another one...
+
+ astro  v4.16.19 ready in 72 ms
+
+┃ Local    http://localhost:4324/
+┃ Network  use --host to expose
+
+23:06:03 watching for file changes...

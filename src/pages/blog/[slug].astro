@@ -2,6 +2,13 @@
 import Layout from '../../components/Layout.astro';
 import { getCollection } from 'astro:content';
 
+// Helper function to properly join base URL with path
+const joinPath = (base: string, path: string) => {
+  const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return normalizedBase + normalizedPath;
+};
+
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts
@@ -18,7 +25,7 @@ const { Content } = await post.render();
 
 <Layout title={`${post.data.title} | Astro Pages`} description={post.data.description}>
   <article class="prose">
-    <p><a href={import.meta.env.BASE_URL + "blog"}>← Back to blog</a></p>
+    <p><a href={joinPath(import.meta.env.BASE_URL, "blog")}>← Back to blog</a></p>
     <h1>{post.data.title}</h1>
     <p><strong>{post.data.pubDate.toLocaleDateString(undefined, { dateStyle: 'medium' })}</strong></p>
     <ul class="tag-list">
