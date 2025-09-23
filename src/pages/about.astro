@@ -1,0 +1,23 @@
+---
+import Layout from '../components/Layout.astro';
+---
+
+<Layout title="About this project" description="Understand how this Astro + GitHub Pages starter is organized.">
+  <article class="prose">
+    <h1>About the site</h1>
+    <p>
+      This project is intentionally lightweight so you can extend it quickly. Astro handles routing, Markdown rendering, and build optimizations while GitHub Pages hosts the generated HTML.
+    </p>
+    <h2>Project layout</h2>
+    <ul>
+      <li><code>src/pages</code> contains route-based `.astro` files.</li>
+      <li><code>src/components</code> stores shared layouts and partials.</li>
+      <li><code>src/content/posts</code> holds Markdown blog posts with typed frontmatter.</li>
+      <li><code>public</code> includes any static assets copied directly into the final build.</li>
+    </ul>
+    <h2>Deployment</h2>
+    <p>
+      A single GitHub Actions workflow builds the site with <code>withastro/action@v3</code> and publishes to the <code>gh-pages</code> branch using <code>actions/deploy-pages@v4</code>. Update <code>astro.config.mjs</code> with your domain so links resolve correctly.
+    </p>
+  </article>
+</Layout>

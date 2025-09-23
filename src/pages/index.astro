@@ -1,0 +1,64 @@
+---
+import Layout from '../components/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Layout title="Astro Pages" description="A minimal Astro starter wired for GitHub Pages deployments.">
+  <section class="hero">
+    <h1>Static content, automated deploys.</h1>
+    <p>
+      Ship a polished marketing or documentation site without provisioning servers. Astro builds static HTML by default and GitHub Pages deploys the output on every push.
+    </p>
+    <div class="button-row">
+      <a class="button" href="/blog">Read the latest updates</a>
+      <a class="button secondary" href="https://docs.astro.build/en/guides/deploy/github/">View the deployment guide</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quick links</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Content collections</h3>
+        <p>Markdown posts live in <code>src/content/posts</code>. Add metadata with frontmatter and Astro will type-check it for you.</p>
+      </article>
+      <article class="card">
+        <h3>Built-in SEO</h3>
+        <p>Layouts set document titles and descriptions, while Astro handles clean URLs and meta tags automatically.</p>
+      </article>
+      <article class="card">
+        <h3>Pages &amp; partials</h3>
+        <p>Create additional routes under <code>src/pages</code> and share UI with reusable components in <code>src/components</code>.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Latest posts</h2>
+    <div class="card-grid">
+      {posts.map((post) => (
+        <article class="card">
+          <h3>{post.data.title}</h3>
+          <p>{post.data.description}</p>
+          <ul class="tag-list">
+            {post.data.tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
+          <a class="button secondary" href={`/blog/${post.slug}`}>Read more</a>
+        </article>
+      ))}
+      {posts.length === 0 && (
+        <article class="card">
+          <h3>No posts yet</h3>
+          <p>Add Markdown files to <code>src/content/posts</code> to see them listed here.</p>
+        </article>
+      )}
+    </div>
+  </section>
+</Layout>
