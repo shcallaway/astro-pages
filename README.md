@@ -30,11 +30,39 @@ The development server runs on [http://localhost:4321](http://localhost:4321) by
 
 ## Deploying to GitHub Pages
 
-1. Update `site` and `base` in `astro.config.mjs` with your GitHub Pages URL and repository name.
+### Understanding the `/astro-pages` Path
+
+This project uses a **conditional base path** configuration that handles different hosting environments:
+
+```javascript
+// In astro.config.mjs
+base: process.env.NODE_ENV === "production" ? "/astro-pages" : "/",
+```
+
+**Why is this needed?**
+
+GitHub Pages hosts project repositories (non-`username.github.io` repos) at a subpath:
+- 🏠 **Repository name**: `astro-pages`
+- 🌐 **Production URL**: `https://username.github.io/astro-pages/`
+- 🛠️ **Local development**: `http://localhost:4321/` (clean URLs)
+
+This means your routes work differently in each environment:
+
+| Environment | Home | About | Blog |
+|-------------|------|-------|------|
+| **Local** | `localhost:4321/` | `localhost:4321/about` | `localhost:4321/blog` |
+| **Production** | `username.github.io/astro-pages/` | `username.github.io/astro-pages/about` | `username.github.io/astro-pages/blog` |
+
+### Deployment Steps
+
+1. Update `site` in `astro.config.mjs` with your actual GitHub Pages URL.
 2. Ensure GitHub Pages is configured to use GitHub Actions as the source.
 3. Push to the `main` branch. The workflow builds the site and publishes the static output to the `gh-pages` branch automatically.
 
-Optional: add `public/CNAME` with your custom domain and set `site` to the custom domain if you plan to use one.
+### Alternative Hosting Options
+
+- **Root domain hosting**: Rename your repository to `username.github.io` and remove the base path entirely
+- **Custom domain**: Add `public/CNAME` with your domain and update the `site` configuration
 
 ## Available scripts
 
