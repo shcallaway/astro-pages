@@ -1,0 +1,37 @@
+---
+import Layout from '../components/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="Blog" description="Fresh notes about this Astro + GitHub Pages starter.">
+  <section class="prose">
+    <h1>Blog</h1>
+    <p>Thoughts on shipping fast, static-friendly sites with Astro and GitHub Pages.</p>
+  </section>
+
+  <div class="card-grid">
+    {posts.map((post) => (
+      <article class="card">
+        <h3>{post.data.title}</h3>
+        <p>{post.data.description}</p>
+        <p><strong>{post.data.pubDate.toLocaleDateString(undefined, { dateStyle: 'medium' })}</strong></p>
+        <ul class="tag-list">
+          {post.data.tags.map((tag) => (
+            <li class="tag">{tag}</li>
+          ))}
+        </ul>
+        <a class="button secondary" href={`/blog/${post.slug}`}>Read post</a>
+      </article>
+    ))}
+    {posts.length === 0 && (
+      <article class="card">
+        <h3>No posts yet</h3>
+        <p>Add a Markdown file with frontmatter to <code>src/content/posts</code> to publish your first entry.</p>
+      </article>
+    )}
+  </div>
+</Layout>
