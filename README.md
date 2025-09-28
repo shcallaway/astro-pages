@@ -71,4 +71,8 @@ This means your routes work differently in each environment:
 - `npm run preview` – Preview the build output locally.
 - `npm run astro` – Access the Astro CLI directly.
 
+## Analytics configuration
+
+Set a `PUBLIC_GOOGLE_ANALYTICS_ID` environment variable (for example, in a local `.env` file or your deployment provider's settings) to automatically inject the Google Analytics tracking script on every page. Leave the variable undefined to run the site without analytics.
+
 Happy shipping!
